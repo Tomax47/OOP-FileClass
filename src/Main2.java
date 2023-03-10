@@ -41,9 +41,18 @@ public class Main2 {
 //        String targetDir = scan.nextLine();
 //        moveToDir(path,targetDir);
 
-        System.out.print("Enter the path of the file u wanna delete : ");
-        String path = scan.nextLine();
-        deleteFile(path);
+//        System.out.print("Enter the path of the file u wanna delete : ");
+//        String path = scan.nextLine();
+//        deleteFile(path);
+
+
+        System.out.print("How many files u wanna delete from the dir Picture : ");
+        int n = scan.nextInt();
+        deleteFiles(n);
+
+//        System.out.print("Enter the path of the dir u wanna delete : ");
+//        String dirPath = scan.nextLine();
+//        deleteDir(dirPath);
     }
 
     public static void createDir(String path, String dirName) {
@@ -111,4 +120,36 @@ public class Main2 {
             System.out.println("Couldn't delete the file!");
         }
     }
+
+    public static void deleteDir(String path) {
+        File dir = new File(path);
+
+        boolean dirDeleted = dir.delete();
+        if (dirDeleted) {
+            System.out.println("The directory has been deleted!");
+        } else {
+            System.out.println("Couldn't delete the directory!");
+        }
+    }
+
+    public static void deleteFiles(int n) {
+        if (n == 0) {
+            return;
+        }
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the path of the file u wanna delete : ");
+        String path = scan.nextLine();
+        File file = new File(path);
+
+        boolean fileDeleted = file.delete();
+        if (fileDeleted) {
+            System.out.println("File has been deleted!");
+            deleteFiles(n - 1);
+        } else {
+            System.out.println("Couldn't delete the file!");
+            deleteFiles(n - 1);
+        }
+    }
+
+
 }
