@@ -46,13 +46,14 @@ public class Main2 {
 //        deleteFile(path);
 
 
-        System.out.print("How many files u wanna delete from the dir Picture : ");
-        int n = scan.nextInt();
-        deleteFiles(n);
+//        System.out.print("How many files u wanna delete from the dir Picture : ");
+//        int n = scan.nextInt();
+//        deleteFiles(n);
 
-//        System.out.print("Enter the path of the dir u wanna delete : ");
-//        String dirPath = scan.nextLine();
-//        deleteDir(dirPath);
+        System.out.print("Enter the path of the dir u wanna delete : ");
+        String dirPath = scan.nextLine();
+        File dir = new File(dirPath);
+        deleteDir(dir);
     }
 
     public static void createDir(String path, String dirName) {
@@ -121,12 +122,18 @@ public class Main2 {
         }
     }
 
-    public static void deleteDir(String path) {
-        File dir = new File(path);
-
+    public static void deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            File[] files = dir.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    deleteDir(file);
+                }
+            }
+        }
         boolean dirDeleted = dir.delete();
         if (dirDeleted) {
-            System.out.println("The directory has been deleted!");
+            System.out.println("Directory has been deleted!");
         } else {
             System.out.println("Couldn't delete the directory!");
         }
